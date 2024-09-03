@@ -48,4 +48,6 @@ Bu proje, React kullanarak geliştirilmiş bir alışveriş sepeti uygulamasıd�
 - SweetAlert2
 - [Mook API](https://mockapi.io/)
 
+https://github.com/user-attachments/assets/2a3d3824-5f9a-4e13-9cf8-9861f76064a3
+
 [Live](https://fy-shopping-cart-app.netlify.app/)
