@@ -37,6 +37,11 @@ body {
   text-decoration: underline !important;
 }
 
+
+.update-product {
+  background-color: wheat;
+}
+
 .new-product {
   width: 50%;
   margin-top: 1rem;

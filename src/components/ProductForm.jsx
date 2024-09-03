@@ -1,34 +1,59 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useProducts } from "../context/ProductProvider";
 
-const ProductForm = () => {
+const ProductForm = ({ handleClose }) => {
+  const { edit, editProduct } = useProducts();
+
+  const {
+    id,
+    amount: newAmount,
+    image: newImage,
+    name: newName,
+    price: newPrice,
+  } = edit;
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(1);
   const [image, setImage] = useState("");
   const [dampingRate, setDampingRate] = useState(0.8);
 
+  useEffect(() => {
+    if (edit) {
+      setName(newName);
+      setPrice(newPrice);
+      setAmount(newAmount);
+      setImage(newImage);
+    }
+  }, [newName, newPrice, newAmount, newImage]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newProduct = { name, price, amount, image, dampingRate };
-    postProduct(newProduct);
-    setName("");
-    setPrice(0);
-    setAmount(1);
-    setImage("");
-    setDampingRate(0.8);
+
+    if (id) {
+      editProduct(id, newProduct);
+      handleClose();
+    } else {
+      postProduct(newProduct);
+      setName("");
+      setPrice(0);
+      setAmount(1);
+      setImage("");
+      setDampingRate(0.8);
+    }
   };
 
   const postProduct = async (newProduct) => {
     try {
-      const res = await axios.post(
+      await axios.post(
         "https://66d2fde0184dce1713cef89f.mockapi.io/products",
         newProduct
       );
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +61,7 @@ const ProductForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h1 className="text-center text-white">New Product</h1>
+      <h1 className="text-center">{id ? "" : "New Product"}</h1>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="name">Product Name</Form.Label>
         <Form.Control
@@ -89,7 +114,8 @@ const ProductForm = () => {
 
       <div className="text-center">
         <Button variant="success" type="submit" size="sm">
-          <i className="fa-solid fa-cart-plus me-2"></i> Save To New Product
+          <i className="fa-solid fa-cart-plus me-2"></i>
+          {id ? "Save To Edit Product" : "Save To New Product"}
         </Button>
       </div>
     </Form>
@@ -97,59 +123,3 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
-
-// <article id="add-product" className="mb-4 mt-4 bg-white ">
-//   <h1 className="text-center">New Product</h1>
-//   <form className="p-2">
-//     <div className="mb-3">
-//       <label htmlFor="add-name" className="form-label">
-//         Product Name
-//       </label>
-//       <input type="text" className="form-control" id="add-name" required />
-//     </div>
-//     <div className="mb-3">
-//       <label htmlFor="add-price" className="form-label">
-//         Product Price
-//       </label>
-//       <input
-//         type="number"
-//         className="form-control"
-//         id="add-price"
-//         placeholder="0"
-//         required
-//       />
-//     </div>
-//     <div className="mb-3">
-//       <label htmlFor="add-quantity" className="form-label">
-//         Product Quantity
-//       </label>
-//       <input
-//         type="number"
-//         className="form-control"
-//         id="add-quantity"
-//         placeholder="0"
-//         required
-//       />
-//     </div>
-//     <label htmlFor="add-image" className="form-label">
-//       Product Image
-//     </label>
-//     <div className="input-group mb-3">
-//       <span className="input-group-text" id="basic-addon3">
-//         https://example.com/
-//       </span>
-//       <input
-//         type="url"
-//         className="form-control"
-//         id="add-image"
-//         aria-describedby="basic-addon3"
-//         required
-//       />
-//     </div>
-//     <div className="text-center">
-//       <button type="submit" className="add-to-cart btn btn-success btn-sm">
-//         <i className="fa-solid fa-cart-plus me-2"></i>Save To Product
-//       </button>
-//     </div>
-//   </form>
-// </article>
