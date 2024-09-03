@@ -21,6 +21,7 @@ This project is a shopping cart application developed using React. The applicati
 - Axios
 - Bootstrap
 - SweetAlert2
+- [Mook API](https://mockapi.io/)
 
 # Shopping Cart App
 
@@ -45,3 +46,4 @@ Bu proje, React kullanarak geliştirilmiş bir alışveriş sepeti uygulamasıd�
 - Axios
 - Bootstrap
 - SweetAlert2
+- [Mook API](https://mockapi.io/)
