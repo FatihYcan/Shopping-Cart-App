@@ -3,6 +3,7 @@ import CardTotal from "../components/CardTotal";
 import { Container, Row } from "react-bootstrap";
 import { useProducts } from "../context/ProductProvider";
 import { useEffect } from "react";
+import Loading from "../components/Loading";
 
 const ProductList = () => {
   const { products, loading, getProducts } = useProducts();
@@ -14,10 +15,17 @@ const ProductList = () => {
   return (
     <Container className="p-4 justify-content-center">
       {loading ? (
-        <p className="text-center text-danger w-100">Loading....</p>
+        <Loading />
       ) : products.length ? (
         <>
-          <Row xs={1} md={3} className="g-4 mb-4 justify-content-center">
+          <Row
+            xs={1}
+            sm={2}
+            md={3}
+            lg={4}
+            xl={5}
+            className="g-4 mb-4 justify-content-center"
+          >
             <ProductCard products={products} getProducts={getProducts} />
           </Row>
 

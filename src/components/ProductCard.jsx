@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import UpdateProduct from "../pages/UpdateProduct";
 import { useState } from "react";
 import { useProducts } from "../context/ProductProvider";
+import Swal from "sweetalert2";
 
 const ProductCard = ({ products, getProducts }) => {
   const { setEdit, editProduct, setLoading } = useProducts();
@@ -45,15 +46,33 @@ const ProductCard = ({ products, getProducts }) => {
   };
 
   const deleteProduct = async (id) => {
-    try {
-      await axios.delete(
-        `https://66d2fde0184dce1713cef89f.mockapi.io/products/${id}/`
-      );
-      getProducts();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "green",
+      cancelButtonColor: "red",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        setLoading(false);
+        await axios.delete(
+          `https://66d2fde0184dce1713cef89f.mockapi.io/products/${id}/`
+        );
+        getProducts();
+        await Swal.fire({
+          title: "Deleted!",
+          text: "Product deleted",
+          icon: "success",
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 

@@ -4,6 +4,7 @@ import { InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useProducts } from "../context/ProductProvider";
+import Swal from "sweetalert2";
 
 const ProductForm = ({ handleClose }) => {
   const { edit, editProduct } = useProducts();
@@ -37,9 +38,23 @@ const ProductForm = ({ handleClose }) => {
 
     if (id) {
       editProduct(id, newProduct);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Product updated",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       handleClose();
     } else {
       postProduct(newProduct);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "New product added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       setName("");
       setPrice(0);
       setAmount(1);

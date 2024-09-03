@@ -37,7 +37,6 @@ body {
   text-decoration: underline !important;
 }
 
-
 .update-product {
   background-color: wheat;
 }
@@ -157,4 +156,25 @@ body {
   background-color: #135058;
   color: #fff;
   height: 40px;
+}
+
+@media (max-width: 576px) {
+  .new-product,
+  .card-total {
+    width: 90%;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .new-product,
+  .card-total {
+    width: 70%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .new-product,
+  .card-total {
+    width: 60%;
+  }
 }

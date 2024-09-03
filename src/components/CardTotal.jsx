@@ -1,8 +1,7 @@
-const taxRate = 0.18;
-const shipping = 25;
-
 const CardTotal = ({ products }) => {
-  console.log(products);
+  const taxRate = 0.18;
+  const shipping = 25;
+
   const subTotal = products.reduce((acc, item) => {
     return (acc += Number(item.amount) * Number(item.price) * item.dampingRate);
   }, 0);
