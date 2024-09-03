@@ -82,8 +82,8 @@ const ProductCard = ({ products, getProducts }) => {
         const { name, image, price, dampingRate, amount, id } = item;
 
         return (
-          <Col key={id}>
-            <Card className="text-center">
+          <Col key={id} className="border border-danger ">
+            <Card className="text-center ">
               <Card.Img variant="top" src={image} alt={name} className="img" />
               <Card.Body>
                 <Card.Title>{name}</Card.Title>
@@ -130,7 +130,7 @@ const ProductCard = ({ products, getProducts }) => {
                     <i className="fa-solid fa-trash-can me-2"></i>Remove
                   </Button>
                 </ListGroup.Item>
-                <ListGroup.Item className="fs-5">
+                <ListGroup.Item className="fs-6">
                   Prdouct Total: $ {(price * dampingRate * amount).toFixed(2)}
                 </ListGroup.Item>
               </ListGroup>
