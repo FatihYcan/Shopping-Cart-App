@@ -82,7 +82,7 @@ const ProductCard = ({ products, getProducts }) => {
         const { name, image, price, dampingRate, amount, id } = item;
 
         return (
-          <Col key={id} className="border border-danger ">
+          <Col key={id}>
             <Card className="text-center ">
               <Card.Img variant="top" src={image} alt={name} className="img" />
               <Card.Body>
